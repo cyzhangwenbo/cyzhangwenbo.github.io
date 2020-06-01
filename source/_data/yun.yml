@@ -185,11 +185,11 @@ cdn:                        #CDN默认采用 jsDelivr，并使用 dns-prefetch �
 
 banner:                           #标语动画
   enable: true
-  title: 慢时光之茶会
+  title: 慢时光茶会
   src: /js/ui/banner.js
   cloud:                           #在首页下方显示流动的云
     enable: true
-    color: "white"                  #自定义色彩
+    color: "black"                  #自定义色彩
   go_down:
     enable: true                    #向下翻页功能
     icon: icon-arrow-down-s-line
@@ -225,11 +225,12 @@ fireworks:                        #点击页面的烟花效果
 
 scrollreveal: true                #首页文章卡片的浮动效果
 
-cursor:                           #cursor光标
+cursor:                          #cursor光标
   enable: true
-  default: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/css/md-cursors/pointer.cur  #默认状态下图标
+  default: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/css/md-cursors/pointer.cur    #默认状态下图标
   pointer: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/css/md-cursors/link.cur     #指针（即链接状态下）图标
   text: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/css/md-cursors/text.cur
+
 
 sidebar:                            #侧边栏背景
   bg_image: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/bg/stars-timing-1.jpg
@@ -288,7 +289,7 @@ toc:                          #目录
 
 creative_commons:               #版权，默认使用Creative Commons 4.0 International License
   license: by-nc-sa             #设置证书 (by | by-nc | by-nc-nd | by-nc-sa | by-nd | by-sa | zero) 
-  post: true                      #在文章末尾显示
+  post: false                      #在文章末尾显示
   language: deed.zh         #设置语言 (deed.zh | deed.fr | deed.de)
 
 
@@ -349,3 +350,18 @@ symbols_count_time:           #字数统计
 wordcloud:                  #标签云(词云)
   enable: false
   height: 350
+
+comment:
+  enable: true
+  icon: icon-chat-3-line
+  tips:
+    - 点击按钮跳转 GitHub Issues 评论。
+    - 若没有本文 Issue，您可以使用 Comment 模版新建。
+
+# GitHub Issues Link Button
+# https://help.github.com/en/github/searching-for-information-on-github/searching-issues-and-pull-requests
+github_issues:
+  enable: true
+  username: cyzhangwenbo
+  repository: cyzhangwenbo.github.io
+  filters: is:issue
