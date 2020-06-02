@@ -42,10 +42,10 @@ menu:                                                 #导航栏
   categories:
     path: /categories/
     icon: icon-folder-2-line
-  #custom:                                #自定义
-  #  title: 文档
-  #  path: https://yun.yunyoujun.cn
-  #  icon: icon-settings-line
+  custom:                                #自定义
+    title: 文档
+    path: https://yun.yunyoujun.cn
+    icon: icon-settings-line
 
 aplayer:              #加载aplayer播放器
   global: true
@@ -200,7 +200,7 @@ notice:                              #公告，显示在文章卡片最上方，
 
 bg_image:                           #背景图片
   enable: true
-  url: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/bg/stars-timing-0-blur-30px.jpg
+  url: https://cdn.jsdelivr.net/gh/cyzhangwenbo/cdn@master/bg-image/bg1.jpg
   # blur: 30px # 设置背景模糊程度
   opacity: 0.8
 
@@ -275,7 +275,7 @@ types:                          #为文章添加type类型，将显示为对应�
     icon: icon-external-link-line
 
 post_meta:                    #文章信息
-  item_text: false          #是否显示文字（如：发表于、更新于，若关闭则只显示图标与时间信息）
+  item_text: true          #是否显示文字（如：发表于、更新于，若关闭则只显示图标与时间信息）
   created_at: true          #是否显示创建时间
   updated_at: true          #是否显示更新时间
   categories: true          #是否显示种类
