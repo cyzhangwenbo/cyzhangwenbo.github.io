@@ -102,7 +102,7 @@ categories:                 #分类制定颜色
   笔记: dimgray
 
 cdn:                        #CDN默认采用 jsDelivr，并使用 dns-prefetch 预解析 jsDelivr
-  pre: https://cdn.jsdelivr.net/gh/cyzhangwenbo/cyzhangwenbo.github.io@master
+  pre: https://cdn.jsdelivr.net/gh/cyzhangwenbo/cyzhangwenbo.github.io@master/
   css:
   js:
     base:
@@ -111,85 +111,13 @@ cdn:                        #CDN默认采用 jsDelivr，并使用 dns-prefetch �
       iconfont: //at.alicdn.com/t/font_1140697_asgm6pccckc.js
     defer:
       
-
-#social:                        #社交图标配置
-  #- name: E-Mail
-  #  link: mailto:cyzhangwenbo@163.com
-  #  icon: icon-mail-line
-  #  color: "#8E71C1"
-
-  #
-  #  - name: RSS
-  #    # set rss in your root config
-  #    # https://github.com/hexojs/hexo-generator-feed
-  #    link: /atom.xml # config.feed.path
-  #    icon: icon-rss-line
-  #    color: orange
-  #- name: QQ
-  #     #https://isux.tencent.com/wp-content/uploads/2016/05/20160512101222609.pdf
-  #    link: https://aq.qq.com/cn2/index
-   #   icon: icon-qq-line
-  #    color: "#12B7F5"
-  #- name: GitHub
-   #   link: https://github.com/cyzhangwenbo
-   #   icon: icon-github-line
-   #   color: "#181717"
-  #  - name: E-Mail
-  #    link: mailto:me@yunyoujun.cn
-  #    icon: icon-mail-line
-  #    color: "#8E71C1"
-  #- name: 微博
-  #    link: https://weibo.com/jizhideyunyoujun
-  #    icon: icon-weibo-line
-  #    color: "#E6162D"
-  #  - name: 豆瓣
-  #    link: https://www.douban.com/people/yunyoujun/
-  #    icon: icon-douban-line
-  #    color: "#007722"
-  #- name: 网易云音乐
-  #    link: https://music.163.com/#/user/home?id=247102977
-  #    icon: icon-netease-cloud-music-line
-  #    color: "#C10D0C"
-  #- name: 知乎
-  #    link: https://www.zhihu.com/people/yunyoujun/
-  #    icon: icon-zhihu-line
-  #    color: "#0084FF"
-  #- name: 哔哩哔哩动画
-  #    link: https://space.bilibili.com/1579790
-  #    icon: icon-bilibili-line
-  #    color: "#FF8EB3"
-  #  - name: POPI
-  #    link: https://www.popiask.cn/elpsycn
-  #    icon: icon-questionnaire-line
-  #    color: "#525252"
-  #  - name: 微信公众号
-  #    link: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/about/white-qrcode-and-search.jpg
-  #    icon: icon-wechat-2-line
-  #    color: "#1AAD19"
-  #  - name: Twitter
-  #    link: https://twitter.com/YunYouJun
-  #    icon: icon-twitter-line
-  #    color: "#1da1f2"
-  #  - name: Telegram
-  #    link: https://t.me/YunYouJun
-  #    icon: icon-telegram-line
-  #    color: "#0088CC"
-  #  - name: Telegram Channel
-  #    link: https://t.me/elpsycn
-  #    icon: icon-telegram-fill
-  #    color: "#0088CC"
-  #  - name: Travelling
-  #    link: https://travellings.now.sh/
-  #    icon: icon-send-plane-2-line
-  #    color: black
-
 banner:                           #标语动画
   enable: true
   title: 慢时光茶会
   src: /js/ui/banner.js
   cloud:                           #在首页下方显示流动的云
     enable: true
-    color: "black"                  #自定义色彩
+    color: "white"                  #自定义色彩
   go_down:
     enable: true                    #向下翻页功能
     icon: icon-arrow-down-s-line
@@ -225,11 +153,11 @@ fireworks:                        #点击页面的烟花效果
 
 scrollreveal: true                #首页文章卡片的浮动效果
 
-cursor:                          #cursor光标
-  enable: true
-  default: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/css/md-cursors/pointer.cur    #默认状态下图标
-  pointer: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/css/md-cursors/link.cur     #指针（即链接状态下）图标
-  text: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/css/md-cursors/text.cur
+#cursor:                          #cursor光标
+#  enable: true
+#  default: https://cdn.jsdelivr.net/gh/cyzhangwenbo/cdn@master/css/md-cursors/pointer.cur    #默认状态下图标
+#  pointer: https://cdn.jsdelivr.net/gh/cyzhangwenbo/cdn@master/css/md-cursors/link.cur     #指针（即链接状态下）图标
+#  text: https://cdn.jsdelivr.net/gh/cyzhangwenbo/cdn@master/css/md-cursors/text.cur
 
 
 sidebar:                            #侧边栏背景
