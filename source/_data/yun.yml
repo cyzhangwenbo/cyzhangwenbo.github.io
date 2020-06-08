@@ -1,35 +1,121 @@
-head:
-  css:                                    #主题的字体
-    fonts: https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&display=swap
-  preload:                                #预加载
-  style:
-    - /css/hexo-theme-yun.css
-  script:
-    - /js/utils.js
-    - /js/hexo-theme-yun.js
-
-  #prefetch:
-  #style:
-  #  - /css/prism.css
-  #script:
-  #  - /js/sidebar.js
+cdn:                          #CDN加速及图标资源引入
+  pre: ""
+  css:
   js:
-    async: https://cdn.jsdelivr.net/npm/ionicons/dist/ionicons.js
-  icon: ion-icon heart
-  #dns_prefetch:
-  #  - https://cos.yunyoujun.cn
+    base:
+    async:
+      # 默认引入的图标资源，使用 iconfont
+      iconfont: //at.alicdn.com/t/font_1140697_asgm6pccckc.js
+    defer:
 
-  # do more(TCP handshake...) than dns-fetch
-  #preconnect:
-  #  - https://cdn.jsdelivr.net
+# Todo: mode: light | dark | auto
+mode: auto #背景亮暗主题
 
-avatar:                                                   # 头像设置
-  enable: true                                  #是否显示头像
-  url: https://i.loli.net/2020/05/29/lat6uBsqACvnkdp.jpg    #图片地址，建议使用图床(地址SM.MS)生成链接
-  rounded: true                 #是否显示圆形
-  opacity: 1                    #透明度
-  mickey_mouse: true           #默认关闭，开启后文章页面侧边栏的头像将向上移动（迪士尼警告）
-menu:                                                 #导航栏
+colors:           #背景主题色
+  primary: "#6200ee"
+  # bg: "#F5F5F5"
+  selection_bg: "#8e71c1" # 选取文字时的背景色
+  # 标签云中标签的起始色和结束色
+  # tag_start_color:
+  # tag_end_color:
+
+  # categories:            #为分类制定色彩
+  #   笔记: dimgray
+
+  # tags:                   #制定标签色彩
+  #  Vue: "#4fc08d"       #可自定义标签名字: "颜色"
+
+favicon: /favicon.ico            # 网站图标
+
+social:
+  - name: GitHub              
+    link: https://github.com/cyzhangwenbo
+    icon: icon-github-line
+    color: "#181717"
+  - name: E-Mail
+    link: mailto:cyzhangwenbo@163.com
+    icon: icon-mail-line
+    color: "#8E71C1"
+  - name: 微博
+    link: https://weibo.com/3669012680/
+    icon: icon-weibo-line
+    color: "#E6162D"
+  - name: 网易云音乐
+    link: https://music.163.com/#/user/home?id=111101973
+    icon: icon-netease-cloud-music-line
+    color: "#C20C0C"
+  - name: 知乎
+    link: https://www.zhihu.com/people/man-shi-guang-zhu-cha-hui
+    icon: icon-zhihu-line
+    color: "#0084FF"
+  - name: 哔哩哔哩
+    link: https://space.bilibili.com/19765569
+    icon: icon-bilibili-line
+    color: "#FF8EB3"
+
+banner:                           #首页动画
+  enable: true
+  title: 雾岛寻枫
+  src: /js/ui/banner.js
+  cloud:
+    enable: true
+    color: "white"
+  go_down:
+    enable: true
+    icon: icon-arrow-down-s-line
+
+notice:                       #公告
+  enable: false
+  content: Thanks for playing my game.
+
+font:                     #字重样式
+  cdn:
+    enable: true
+    lib:
+      - https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700&family=Source+Code+Pro&display=swap
+  serif:
+    family: "'Songti SC', 'Noto Serif SC', STZhongsong, STKaiti, KaiTi, Roboto, serif"
+    weight: 900
+  sans_serif:
+    family: "'PingFang SC', 'Microsoft YaHei', Roboto, Arial, sans-serif"
+    weight: 300
+  monospace:
+    family: "'Source Code Pro', 'Courier New', Courier, Consolas, Monaco, monospace"
+
+bg_image:                   #背景图片
+  enable: true
+  url: https://cdn.jsdelivr.net/gh/cyzhangwenbo/cdn@master/bg-image/bg1.jpg
+  # blur: 30px # 设置背景模糊程度
+  opacity: 0.8
+
+sidebar:                              #侧边栏背景以及数量显示
+  bg_image: https://cdn.jsdelivr.net/gh/cyzhangwenbo/cdn@master/bg-image/bg-cebian2.jpg
+  bg_position: bottom 3rem center
+  tagcloud:
+    enable: false
+    amount: 20
+
+fireworks:              #点击烟花
+  enable: true
+  colors:
+    - "102, 167, 221"
+    - "62, 131, 225"
+    - "72, 114, 255"
+
+cursor:           #鼠标样式
+  enable: true
+  default: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/css/md-cursors/pointer.cur
+  pointer: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/css/md-cursors/link.cur
+  text: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/css/md-cursors/text.cur
+
+avatar:                 #头像设置
+  enable: true
+  url: /images/avatar.jpg
+  rounded: true
+  opacity: 1
+  mickey_mouse: false
+
+menu:       #导航栏
   home:
     path: /
     icon: icon-home-4-line
@@ -42,138 +128,17 @@ menu:                                                 #导航栏
   categories:
     path: /categories/
     icon: icon-folder-2-line
-  custom:                                #自定义
-    title: 文档
+  custom:
     path: https://yun.yunyoujun.cn
-    icon: icon-settings-line
+    icon: icon-clipboard-line
 
-aplayer:              #加载aplayer播放器
-  global: true
-  meting: true
-  # https://github.com/metowolf/MetingJS/tree/v1.2#option
-  widget:
-    enable: true
-    autoplay: false
-    # theme: "#2980b9"
-    loop: all
-    order: list
-    preload: auto
-    volume: 0.7
-    mutex: true
-    lrcType: 0
-    listFolded: false
-    listMaxHeight: 340px
-    audio:
-      - name: 星宿计时
-        artist: 杉田朗/洛天依
-        url: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/audio/star-timer.mp3
-        cover: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/bg/stars-timing-0.jpg
-    meting:
-      enable: true
-      id: 308168565
-      server: netease
-      type: playlist
-    pjax:
-      enable: true
+pages:          #加友链时使用
+  - name: 我的小伙伴们
+    url: /links/
+    icon: icon-genderless-line
+    color: dodgerblue
 
-colors:                   #主题背景色
-  primary: "#000000"
-  # bg: "#F5F5F5"
-  selection_bg: "#8e71c1" # 选取文字时的背景色
-  # 标签云中标签的起始色和结束色
-  # tag_start_color:
-  # tag_end_color:
-
-tags:                       #标签制定颜色
-  Vue: "#4fc08d"
-  Hexo: "#0E834D"
-  CSS: "#5298d1"
-  Node.js: "#026E00"
-  Git: "#F14E32"
-  React: "#61dafb"
-  Python: "#3776ab"
-  PHP: "#8892BF"
-  VS Code: "#0066B8"
-  JavaScript: "#F4DF4F"
-  TypeScript: "#317AC6"
-  Laravel: "#F4645F"
-
-categories:                 #分类制定颜色
-  笔记: dimgray
-
-cdn:                        #CDN默认采用 jsDelivr，并使用 dns-prefetch 预解析 jsDelivr
-  pre: https://cdn.jsdelivr.net/gh/cyzhangwenbo/cyzhangwenbo.github.io@master/
-  css:
-  js:
-    base:
-    async:
-      # 默认引入的图标资源，使用 iconfont
-      iconfont: //at.alicdn.com/t/font_1140697_asgm6pccckc.js
-    defer:
-      
-banner:                           #标语动画
-  enable: true
-  title: 慢时光茶会
-  src: /js/ui/banner.js
-  cloud:                           #在首页下方显示流动的云
-    enable: true
-    color: "white"                  #自定义色彩
-  go_down:
-    enable: true                    #向下翻页功能
-    icon: icon-arrow-down-s-line
-
-notice:                              #公告，显示在文章卡片最上方，标语的下方
-  enable: false
-  content: Thanks for playing my game.
-
-bg_image:                           #背景图片
-  enable: true
-  url: https://cdn.jsdelivr.net/gh/cyzhangwenbo/cdn@master/bg-image/bg1.jpg
-  # blur: 30px # 设置背景模糊程度
-  opacity: 0.8
-
-search:                         #搜索栏背景
-  bg_image: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/bg/stars-timing-2.jpg
-  placeholder: searchrch...     #搜索栏的内容提示文字
-
-trianglify:                     #随机多边形图形
-  enable: false                     #默认关闭
-  cell_size: 75                     #多边形网格尺寸
-  width: 800                          
-  height: 600
-  palette: '["YlGnBu", "GnBu", "Purples", "Blues"]' #调色盘，请参考文档配置trianglify - GitHub
-  opacity: 0.5                                      #透明度
-
-fireworks:                        #点击页面的烟花效果
-  enable: true
-  colors:                         #包含的颜色，默认为几种蓝色配色（请仿照下方使用 RGB 数值）
-    - "102, 167, 221"
-    - "62, 131, 225"
-    - "33, 78, 194"
-
-scrollreveal: true                #首页文章卡片的浮动效果
-
-#cursor:                          #cursor光标
-#  enable: true
-#  default: https://cdn.jsdelivr.net/gh/cyzhangwenbo/cdn@master/css/md-cursors/pointer.cur    #默认状态下图标
-#  pointer: https://cdn.jsdelivr.net/gh/cyzhangwenbo/cdn@master/css/md-cursors/link.cur     #指针（即链接状态下）图标
-#  text: https://cdn.jsdelivr.net/gh/cyzhangwenbo/cdn@master/css/md-cursors/text.cur
-
-
-sidebar:                            #侧边栏背景
-  bg_image: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/bg/stars-timing-1.jpg
-  bg_position: bottom 3rem center
-  tagcloud:                         #在侧边栏显示 Hexo 原生标签页
-    enable: false
-    amount: 20                      #显示数量
-
-pages:                          #页面链接，用于友情链接
-  #- name: 我的小伙伴们
-  #  url: /links/
-  #  icon: icon-genderless-line
-  #  color: dodgerblue
-
-types:                          #为文章添加type类型，将显示为对应图标。默认支持(哔哩哔哩、豆瓣、GitHub、网易云音乐、微信公众号、微博、语雀、知乎、外链)
+types:                #文章标题前可以添加type类型具有图标 具体见文档
   bilibili:
     color: "#FF8EB3"
     icon: icon-bilibili-line
@@ -202,37 +167,24 @@ types:                          #为文章添加type类型，将显示为对应�
     color: blue
     icon: icon-external-link-line
 
-post_meta:                    #文章信息
-  item_text: true          #是否显示文字（如：发表于、更新于，若关闭则只显示图标与时间信息）
-  created_at: true          #是否显示创建时间
-  updated_at: true          #是否显示更新时间
-  categories: true          #是否显示种类
-  tags: true                #是否显示标签
+post_meta:       #是否显示文章的创建时间、修改时间等
+  item_text: false
+  created_at: true
+  updated_at: true
+  categories: true
+  tags: true
 
-toc:                          #目录
-  list_number: true             #显示编号
-  max_depth: 6                  #生成 TOC 的最大深度
-  min_depth: 1                  #生成 TOC 的最小深度
-  placeholder: 很遗憾，咱没写啥目录  #当目录不存在时，要显示的内容
-
-creative_commons:               #版权，默认使用Creative Commons 4.0 International License
-  license: by-nc-sa             #设置证书 (by | by-nc | by-nc-nd | by-nc-sa | by-nd | by-sa | zero) 
-  post: false                      #在文章末尾显示
-  language: deed.zh         #设置语言 (deed.zh | deed.fr | deed.de)
-
-
-reward_settings:                #打赏
+reward_settings:          #打赏 可在某篇文章前设置属性reward:true/false来确定该文章是否开启打赏
   enable: false
-  icon: icon-hand-coin-line      #图标
+  icon: icon-hand-coin-line
   comment: I'm so cute. Please give me money.
-  # url: https://github.com/YunYouJun/yunyoujun.github.io/issues/96  打赏链接(外部打开的方式)
+  # url: https://github.com/YunYouJun/yunyoujun.github.io/issues/96
 
-
-reward:                         #打赏二维码
+reward:     #打赏二维码
   - name: 支付宝
     path: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/donate/alipay-qrcode.jpg
     color: "#00A3EE"
-    icon: icon-alipay-line                #图标名称
+    icon: icon-alipay-line
   - name: QQ 支付
     path: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/donate/qqpay-qrcode.png
     color: "#12B7F5"
@@ -242,54 +194,90 @@ reward:                         #打赏二维码
     color: "#2DC100"
     icon: icon-wechat-pay-line
 
-footer:                         #页脚
-  since: 2020               #起始年份
-  icon:                         #图标
+footer:       #页脚
+  since: 2020
+  icon:
     name: icon-cloud-line
     animated: true
     color: "#0078E7"
-  powered:                    #让更多人知道 Hexo 与主题 Yun
+  powered:    #显示主题名称
     enable: true
-  beian:                      #备案
+  beian:      #备案
     enable: false
     icp: 苏ICP备xxxxxxxx号
-  #custom_text: Hosted by <a href="https://pages.coding.me" rel="noopener" target="_blank">Coding Pages</a> 自定义文本
+  live_time:            #运行时间
+    enable: true
+    prefix: 本博客已萌萌哒地运行
+    suffix: (●'◡'●)
+    start_time: "2020-05-12T00:00:00"
+  #custom_text: Hosted by <a href="https://pages.coding.me" rel="noopener" target="_blank">Coding Pages</a> #自定义文本
 
-say:                          #一言，在主页面随机显示的话
-  enable: true                #是否开启 Say
-  api: https://cdn.jsdelivr.net/gh/ElpsyCN/say@gh-pages/sentences.json  #远程 JSON API
-  src: /js/say.js          #调用的 js 文件，最好不要修改（你也可以仿照其结构自己写，来加载想要的 JSON 格式。）
-  # https://developer.hitokoto.cn/sentence/   
+say:                      #一言
+  enable: true
+  api: https://cdn.jsdelivr.net/gh/ElpsyCN/say@gh-pages/sentences.json
+  src: /js/say.js
+  # https://developer.hitokoto.cn/sentence/
   hitokoto:
-    enable: true                  #是否开启 一言，开启一言(https://hitokoto.cn/)时，将默认覆盖 say.api
-    api: https://v1.hitokoto.cn   #你可以参考 语句接口｜一言(https://developer.hitokoto.cn/sentence/) 来根据你的想法使用一言 API
+    enable: false
+    api: https://v1.hitokoto.cn
 
-mourn:                        #默哀，在每年的指定日期，开启灰色默哀模式。
+mourn:        #默哀，页面灰色
   enable: false
   days:
     - "4-4"
 
-symbols_count_time:           #字数统计
-  item_text_post: true
-  item_text_total: true
-  awl: 2
-  wpm: 250
-
-wordcloud:                  #标签云(词云)
+wordcloud:      #词云
   enable: false
-  height: 350
 
-comment:
+local_search: #本地搜索
   enable: true
-  icon: icon-chat-3-line
-  tips:
-    - 点击按钮跳转 GitHub Issues 评论。
-    - 若没有本文 Issue，您可以使用 Comment 模版新建。
+  src: /js/search/local-search.js
 
-# GitHub Issues Link Button
-# https://help.github.com/en/github/searching-for-information-on-github/searching-issues-and-pull-requests
+
+aplayer:          #音乐播放器
+  global: true
+  meting: true
+  # https://github.com/metowolf/MetingJS/tree/v1.2#option
+  widget:
+    enable: true
+    autoplay: false
+    # theme: "#2980b9"
+    loop: all
+    order: list
+    preload: auto
+    volume: 0.7
+    mutex: true
+    lrcType: 0
+    listFolded: false
+    listMaxHeight: 340px
+    audio:
+      
+    meting:
+      enable: true
+      id: 308168565
+      server: netease
+      type: playlist
+
+toc:                          #目录
+  list_number: true             #显示编号
+  max_depth: 6                  #生成 TOC 的最大深度
+  min_depth: 1                  #生成 TOC 的最小深度
+  placeholder: 很遗憾，咱没写啥目录
+
 github_issues:
   enable: true
   username: cyzhangwenbo
   repository: cyzhangwenbo.github.io
   filters: is:issue
+
+comment:
+  enable: false
+  icon: icon-chat-3-line
+  tips:
+    - 点击按钮跳转 GitHub Issues 评论。
+    - 若没有本文 Issue，您可以使用 Comment 模版新建。
+
+creative_commons:
+  license: by-nc-sa
+  language: deed.zh
+  post: false
