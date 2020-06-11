@@ -3,7 +3,7 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Wenbo's Blog
+title: 雾岛寻枫的小屋
 subtitle: '失败中成长，低谷中仰望'
 description: ''
 keywords:
@@ -27,6 +27,7 @@ public_dir: public
 tag_dir: tags
 archive_dir: archives
 category_dir: categories
+about_dir: about
 code_dir: downloads/code
 i18n_dir: :lang
 skip_render:
