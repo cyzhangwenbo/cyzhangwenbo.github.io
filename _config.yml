@@ -4,8 +4,8 @@
 
 # Site
 title: 雾岛寻枫的小屋
-subtitle: '失败中成长，低谷中仰望'
-description: ''
+subtitle: ''
+description: '失败中成长，低谷中仰望'
 keywords:
 author: 雾岛寻枫
 language: en
@@ -27,7 +27,6 @@ public_dir: public
 tag_dir: tags
 archive_dir: archives
 category_dir: categories
-about_dir: about
 code_dir: downloads/code
 i18n_dir: :lang
 skip_render:
