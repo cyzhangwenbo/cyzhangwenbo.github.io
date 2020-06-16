@@ -132,6 +132,14 @@ pages:          #加友链时使用
     icon: icon-genderless-line
     color: dodgerblue
 
+  - name: 二次元
+    url: /girls/
+    icon: icon-women-line
+    color: red
+
+girls: 
+  enable: true
+
 types:                #文章标题前可以添加type类型具有图标 具体见文档
   bilibili:
     color: "#FF8EB3"
@@ -275,3 +283,27 @@ comment:
     - 若没有本文 Issue，您可以使用 Comment 模版新建。
 
 
+valine:
+  enable: true
+  appId: aFp70kkrWcAgndwD3TkHq5Ip-gzGzoHsz # your leancloud application appid
+  appKey: SgAqWumLMYIDJbovp1kjlJVe # your leancloud application appkey
+  # https://github.com/DesertsP/Valine-Admin
+  # https://valine.yunyoujun.cn
+  placeholder: 大佬求指教&nbsp_(:з」∠)_ （填写邮箱可以收到回复通知～）
+  visitor: true
+  recordIP: true
+  enableQQ: true
+  visitor_index: false
+
+katex:
+  copy_tex: true  
+  global: false        #全局渲染数学公式，不开启需要在需要渲染的文件头输入katex: true
+
+  busuanzi:
+  enable: true
+  site_uv: true
+  site_uv_icon: icon-user-line
+  site_pv: true
+  site_pv_icon: icon-eye-line
+  page_pv: true
+  page_pv_icon: icon-eye-line
