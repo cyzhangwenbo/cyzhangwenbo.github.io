@@ -58,20 +58,6 @@ notice:                       #公告
   enable: false
   content: Thanks for playing my game.
 
-font:                     #字重样式
-  cdn:
-    enable: true
-    lib:
-      - https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700&family=Source+Code+Pro&display=swap
-  serif:
-    family: "'Songti SC', 'Noto Serif SC', STZhongsong, STKaiti, KaiTi, Roboto, serif"
-    weight: 900
-  sans_serif:
-    family: "'PingFang SC', 'Microsoft YaHei', Roboto, Arial, sans-serif"
-    weight: 300
-  monospace:
-    family: "'Source Code Pro', 'Courier New', Courier, Consolas, Monaco, monospace"
-
 bg_image:                   #背景图片
   enable: true
   url: https://cdn.jsdelivr.net/gh/cyzhangwenbo/cdn@master/bg-image/bg1.jpg
@@ -85,21 +71,9 @@ sidebar:                              #侧边栏背景以及数量显示
     enable: false
     amount: 20
 
-fireworks:              #点击烟花
-  enable: true
-  colors:
-    - "102, 167, 221"
-    - "62, 131, 225"
-    - "72, 114, 255"
 
 cursor:           #鼠标样式
   enable: true
-  default: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/css/md-cursors/pointer.cur
-  pointer: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/css/md-cursors/link.cur
-  text: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/css/md-cursors/text.cur
-
-post_card:      #文章卡透明度
-  opacity: 0.8
 
 avatar:                 #头像设置
   enable: true
@@ -109,18 +83,6 @@ avatar:                 #头像设置
   mickey_mouse: false
 
 menu:       #导航栏
-  home:
-    path: /
-    icon: icon-home-4-line
-  archives:
-    path: /archives/
-    icon: icon-archive-line
-  tags:
-    path: /tags/
-    icon: icon-price-tag-3-line
-  categories:
-    path: /categories/
-    icon: icon-folder-2-line
   custom:
     title: 小屋
     path: /about/
@@ -131,7 +93,6 @@ pages:          #加友链时使用
     url: /links/
     icon: icon-genderless-line
     color: dodgerblue
-
   - name: 二次元
     url: /girls/
     icon: icon-women-line
@@ -140,34 +101,6 @@ pages:          #加友链时使用
 girls: 
   enable: true
 
-types:                #文章标题前可以添加type类型具有图标 具体见文档
-  bilibili:
-    color: "#FF8EB3"
-    icon: icon-bilibili-line
-  douban:
-    color: "#007722"
-    icon: icon-douban-line
-  github:
-    color: black
-    icon: icon-github-line
-  netease-cloud-music:
-    color: "#C10D0C"
-    icon: icon-netease-cloud-music-line
-  wechat:
-    color: "#1AAD19"
-    icon: icon-wechat-2-line
-  weibo:
-    color: "#E6162D"
-    icon: icon-weibo-line
-  yuque:
-    color: "#25b864"
-    icon: icon-yuque
-  zhihu:
-    color: "#0084FF"
-    icon: icon-zhihu-line
-  link:
-    color: blue
-    icon: icon-external-link-line
 
 post_meta:       #是否显示文章的创建时间、修改时间等
   item_text: false
@@ -176,25 +109,6 @@ post_meta:       #是否显示文章的创建时间、修改时间等
   categories: true
   tags: true
 
-reward_settings:          #打赏 可在某篇文章前设置属性reward:true/false来确定该文章是否开启打赏
-  enable: false
-  icon: icon-hand-coin-line
-  comment: I'm so cute. Please give me money.
-  # url: https://github.com/YunYouJun/yunyoujun.github.io/issues/96
-
-reward:     #打赏二维码
-  - name: 支付宝
-    path: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/donate/alipay-qrcode.jpg
-    color: "#00A3EE"
-    icon: icon-alipay-line
-  - name: QQ 支付
-    path: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/donate/qqpay-qrcode.png
-    color: "#12B7F5"
-    icon: icon-qq-line
-  - name: 微信支付
-    path: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/donate/wechatpay-qrcode.jpg
-    color: "#2DC100"
-    icon: icon-wechat-pay-line
 
 footer:       #页脚
   since: 2020
@@ -222,11 +136,6 @@ say:                      #一言
   hitokoto:
     enable: false
     api: https://v1.hitokoto.cn
-
-mourn:        #默哀，页面灰色
-  enable: false
-  days:
-    - "4-4"
 
 wordcloud:      #词云
   enable: false
@@ -267,7 +176,7 @@ toc:                          #目录
   list_number: true             #显示编号
   max_depth: 6                  #生成 TOC 的最大深度
   min_depth: 1                  #生成 TOC 的最小深度
-  placeholder: 很遗憾，该文章没啥目录
+  placeholder: 该文章暂无目录！
 
 github_issues:
   enable: true
@@ -276,34 +185,22 @@ github_issues:
   filters: is:issue
 
 comment:
-  enable: false
+  enable: true
   icon: icon-chat-3-line
   tips:
     - 点击按钮跳转 GitHub Issues 评论。
     - 若没有本文 Issue，您可以使用 Comment 模版新建。
 
+reward_settings:   #打赏
+  enable: false
+  comment: 我很可爱，请给我钱
 
 valine:
   enable: true
   appId: aFp70kkrWcAgndwD3TkHq5Ip-gzGzoHsz # your leancloud application appid
   appKey: SgAqWumLMYIDJbovp1kjlJVe # your leancloud application appkey
-  # https://github.com/DesertsP/Valine-Admin
-  # https://valine.yunyoujun.cn
-  placeholder: 大佬求指教&nbsp_(:з」∠)_ （填写邮箱可以收到回复通知～）
-  visitor: true
-  recordIP: true
-  enableQQ: true
-  visitor_index: false
+  placeholder: 说点什么吧... # comment box placeholder
 
 katex:
   copy_tex: true  
   global: false        #全局渲染数学公式，不开启需要在需要渲染的文件头输入katex: true
-
-  busuanzi:
-  enable: true
-  site_uv: true
-  site_uv_icon: icon-user-line
-  site_pv: true
-  site_pv_icon: icon-eye-line
-  page_pv: true
-  page_pv_icon: icon-eye-line
