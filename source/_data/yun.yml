@@ -60,7 +60,9 @@ notice:                       #公告
 
 bg_image:                   #背景图片
   enable: true
-  url: https://cdn.jsdelivr.net/gh/cyzhangwenbo/cdn@master/bg-image/bg1.jpg
+  url: https://cdn.jsdelivr.net/gh/cyzhangwenbo/image/img/RDmeigong.jpg
+  dark: https://cdn.jsdelivr.net/gh/cyzhangwenbo/image/Cygames/kailiu.jpg
+    # https://cdn.jsdelivr.net/gh/cyzhangwenbo/cdn@master/bg-image/bg1.jpg
   # blur: 30px # 设置背景模糊程度
   opacity: 0.8
 
@@ -204,3 +206,6 @@ valine:
 katex:
   copy_tex: true  
   global: false        #全局渲染数学公式，不开启需要在需要渲染的文件头输入katex: true
+
+pjax:
+  enable: true
