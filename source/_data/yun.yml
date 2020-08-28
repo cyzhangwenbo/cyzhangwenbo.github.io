@@ -60,14 +60,17 @@ notice:                       #公告
 
 bg_image:                   #背景图片
   enable: true
-  url: https://cdn.jsdelivr.net/gh/cyzhangwenbo/image/img/RDmeigong.jpg
-  dark: https://cdn.jsdelivr.net/gh/cyzhangwenbo/image/Cygames/kailiu.jpg
-    # https://cdn.jsdelivr.net/gh/cyzhangwenbo/cdn@master/bg-image/bg1.jpg
+  url: https://cdn.jsdelivr.net/gh/cyzhangwenbo/image/Cygames/tongren.jpg
+  # dark: https://cdn.jsdelivr.net/gh/cyzhangwenbo/image/Cygames/kailiu.jpg
+    # https://cdn.jsdelivr.net/gh/cyzhangwenbo/cdn@master/bg-image/bg1.jpg 天依
+    # https://cdn.jsdelivr.net/gh/cyzhangwenbo/image/img/RDmeigong.jpg 妹弓
   # blur: 30px # 设置背景模糊程度
-  opacity: 0.8
+  opacity: 1
 
 sidebar:                              #侧边栏背景以及数量显示
-  bg_image: https://cdn.jsdelivr.net/gh/cyzhangwenbo/cdn@master/bg-image/bg-cebian2.jpg
+  bg_image: https://cdn.jsdelivr.net/gh/cyzhangwenbo/image/Cygames/cebiankailiu.png
+    # https://cdn.jsdelivr.net/gh/cyzhangwenbo/image/Cygames/jinghua.jpg
+    # https://cdn.jsdelivr.net/gh/cyzhangwenbo/cdn@master/bg-image/bg-cebian2.jpg
   bg_position: bottom 3rem center
   tagcloud:
     enable: false
@@ -93,19 +96,23 @@ menu:       #导航栏
 pages:          #加友链时使用
   - name: 我的小伙伴们
     url: /links/
-    icon: icon-genderless-line
+    icon: icon-men-line
     color: dodgerblue
   - name: 二次元
     url: /girls/
     icon: icon-women-line
     color: red
+  - name: 相册集
+    url: /albums/
+    icon: icon-creative-commons-nd-line
+    color: yellow
 
 girls: 
   enable: true
 
 
 post_meta:       #是否显示文章的创建时间、修改时间等
-  item_text: false
+  item_text: true
   created_at: true
   updated_at: true
   categories: true
@@ -142,13 +149,16 @@ say:                      #一言
 wordcloud:      #词云
   enable: false
 
-local_search: #本地搜索
+algolia_search: #algolia搜索
   enable: true
-  src: /js/search/local-search.js
+  src: /js/search/algolia-search.js
+  hits:
+    per_page: 10 # the number of search results per page    #algolia搜索
+
 search:
   bg_image: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/bg/stars-timing-0-blur-30px.jpg
-  dark_bg_image: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/bg/mountain.jpg
-  placeholder: 想要搜些什么？
+  # dark_bg_image: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/bg/mountain.jpg
+  placeholder: 搜一搜...
 
 aplayer:          #音乐播放器
   global: false
@@ -156,7 +166,7 @@ aplayer:          #音乐播放器
   # https://github.com/metowolf/MetingJS/tree/v1.2#option
   widget:
     enable: true
-    autoplay: false
+    autoplay: true
     # theme: "#2980b9"
     loop: all
     order: list
@@ -169,7 +179,7 @@ aplayer:          #音乐播放器
     audio:
       
     meting:
-      enable: true
+      enable: false
       id: 136307544
       server: netease
       type: playlist
@@ -181,21 +191,20 @@ toc:                          #目录
   placeholder: 该文章暂无目录！
 
 github_issues:
-  enable: true
+  enable: false
   username: cyzhangwenbo
   repository: cyzhangwenbo.github.io
   filters: is:issue
 
 comment:
-  enable: true
+  enable: false
   icon: icon-chat-3-line
   tips:
     - 点击按钮跳转 GitHub Issues 评论。
     - 若没有本文 Issue，您可以使用 Comment 模版新建。
 
-reward_settings:   #打赏
+reward:   #打赏
   enable: false
-  comment: 我很可爱，请给我钱
 
 valine:
   enable: true
@@ -208,4 +217,7 @@ katex:
   global: false        #全局渲染数学公式，不开启需要在需要渲染的文件头输入katex: true
 
 pjax:
+  enable: false
+
+albums:  #相册集
   enable: true

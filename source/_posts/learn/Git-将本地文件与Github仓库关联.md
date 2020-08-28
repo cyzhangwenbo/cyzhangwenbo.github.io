@@ -1,10 +1,12 @@
 ---
 title: Git 将本地文件与Github仓库关联
-date: 2020-06-02 23:48:50
 tags:
-	- Git
-categories: 
-	- 总结
+  - Git
+categories:
+  - GitHub
+  - 总结
+abbrlink: bf3509b4
+date: 2020-06-02 23:48:50
 ---
 
 ## 建立步骤

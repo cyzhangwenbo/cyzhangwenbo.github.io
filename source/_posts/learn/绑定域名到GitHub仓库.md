@@ -1,11 +1,13 @@
 ---
 title: 绑定域名到GitHub仓库
-date: 2020-06-07 21:02:36
 tags:
-	- 域名
-	- 技术总结
-categories: 
-	- 总结
+  - 域名
+  - 技术总结
+categories:
+  - GitHub
+  - 域名
+abbrlink: 2c0929b6
+date: 2020-06-07 21:02:36
 ---
 
 以下均以腾讯云为例

@@ -1,11 +1,13 @@
 ---
 title: GitHub+jsDelivr+PicGo图床
-date: 2020-06-18 16:35:22
 tags:
-	- 图床
-	- 工具
-categories: 
-	- 图床工具
+  - 图床
+  - 工具
+categories:
+  - GitHub
+  - 图床工具
+abbrlink: a66e99c0
+date: 2020-06-18 16:35:22
 ---
 
 Github图床是个自定义存储图片的不错选择，利用jsDelivr CDN加速访问（免费开源CDN解决方案），PicGo工具一键上传，简单高效，且GitHub和jsDelivr都是大厂，不必担心跑路问题和容量问题。（国内服务器搭建图床容量多费用就高），该方案是目前免费图床的最佳方案！

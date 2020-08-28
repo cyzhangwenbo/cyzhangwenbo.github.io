@@ -5,8 +5,9 @@ type: about
 aplayer: true
 ---
 
-<h1><center>欢迎来到雾岛寻枫的音乐空间</center></h1>
+<h2><center>雾岛寻枫音乐盒</center></h2>
 
 
 
 {% meting "5060027217" "netease" "playlist" "theme:#555" "mutex:true" "listmaxheight:340px" "preload:auto" %}
+
