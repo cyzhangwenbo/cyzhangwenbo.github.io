@@ -1,107 +1,354 @@
-extends includes/layout.pug
-
-block top_img
-  - var top_img = page.top_img || theme.post_meta.top_img || theme.top_img || config.top_img
-  if (top_img && page.top_img !== false)
-    - var bg_img = top_img !== true ? `background-image: url(${top_img})` : ''
-    - var flag = top_img === true ? 'no-bg' : ''
-    div#top-container(style=bg_img class=flag)
-      include ./includes/header.pug
-      #post-info
-        #post-title= page.title || _p('no_title')
-        #post-meta
-          if (theme.post_meta.date_type)
-            if (theme.post_meta.date_type === 'both')
-              time.post-meta__date
-                i.fa.fa-calendar(aria-hidden="true")
-                =' '+_p('post.created')+' '+date(page.date, config.date_format)
-                span.post-meta__separator |
-                i.fa.fa-calendar-check-o(aria-hidden="true")
-                =' '+_p('post.updated')+' '+date(page.updated, config.date_format)
-            else
-              - var date_type = theme.post_meta.date_type === 'updated' ? 'updated' : 'date'
-              time.post-meta__date #[i.fa.fa-calendar(aria-hidden="true")] #[=date(page[date_type], config.date_format)]
-          if (theme.post_meta.categories && page.categories.data.length > 0)
-            if (theme.post_meta.date_type)
-              span.post-meta__separator |
-            each item, index in page.categories.data
-              i.fa.fa-inbox.post-meta__icon(aria-hidden="true")
-              a(href=url_for(item.path)).post-meta__categories #[=item.name]
-              if (index < page.categories.data.length - 1)
-                 i.fa.fa-angle-right(aria-hidden="true")
-          if (theme.disqus.enable && theme.disqus.count)
-            if (theme.post_meta.date_type || theme.post_meta.categories && page.categories.data.length > 0)
-              span.post-meta__separator |
-            i.fa.fa-comment-o.post-meta__icon(aria-hidden="true")
-            a(href=url_for(page.path) + '#disqus_thread')
-              span.disqus-comment-count(data-disqus-identifier=page.path)
-          if (theme.wordcount && theme.wordcount.enable)
-            .post-meta-wordcount
-              span= _p('post.wordcount') + ': '
-              span.word-count= wordcount(page.content)
-              span.post-meta__separator |
-              span= _p('post.min2read', min2read(page.content, {cn: 350, en: 160}))
-  else
-    div#top-container.plain
-      include ./includes/header.pug
-
-block content
-  article#post(class="")
-    if (!top_img)
-      #post-title.plain= page.title || _p('no_title')
-      #post-meta
-        if (theme.post_meta.date_type)
-          - var date_type = theme.post_meta.date_type === 'updated' ? '' : 'date'
-          time.post-meta__date #[i.fa.fa-calendar(aria-hidden="true")] #[=date(page[date_type], config.date_format)]
-        if (theme.post_meta.categories && page.categories.data.length > 0)
-          if (theme.post_meta.date_type)
-            span.post-meta__separator |
-          each item, index in page.categories.data
-            i.fa.fa-inbox(aria-hidden="true")
-            a(href=url_for(item.path)).post-meta__categories  #[=item.name]
-            if (index < page.categories.data.length - 1)
-                i.fa.fa-angle-right.post-meta__separator(aria-hidden="true")
-        if (theme.disqus.enable && theme.disqus.count)
-          if (theme.post_meta.date_type || theme.post_meta.categories && page.categories.data.length > 0)
-            span.post-meta__separator |
-          i.fa.fa-comment-o(aria-hidden="true")
-          a(href=url_for(page.path) + '#disqus_thread')
-            span.disqus-comment-count(data-disqus-identifier=page.path)
-        if (theme.wordcount && theme.wordcount.enable)
-          span.post-meta__separator |
-          span.post-meta-wordcount
-            span= _p('post.wordcount') + ': '
-            span.word-count= wordcount(page.content)
-            span.post-meta__separator |
-            span= _p('post.min2read', min2read(page.content, {cn: 350, en: 160}))
-    #post-content.article-container!= page.content
-  if (theme.post_copyright && theme.post_copyright.enable)
-    .post-copyright
-      .post-copyright__author
-        span.post-copyright-meta= _p('post.copyright.author') + ": "
-        span.post-copyright-info
-          a(href=`mailto:${config.email}`) #[=config.author]
-      .post-copyright__type
-        span.post-copyright-meta= _p('post.copyright.link') + ": "
-        span.post-copyright-info
-          a(href=url_for(decodeURI(page.permalink))) #[=decodeURI(page.permalink)]
-      .post-copyright__notice
-        span.post-copyright-meta= _p('post.copyright.copyright_notice') + ": "
-        span.post-copyright-info!= _p('post.copyright.copyright_content', theme.post_copyright.license_url, theme.post_copyright.license, config.url, config.title)
-  if (theme.post_meta.tags)
-    .post-meta__tag-list
-      each item, index in page.tags.data
-        a(href=url_for(item.path)).post-meta__tags #[=item.name]
-  if (theme.QR_code)
-    if (theme.QR_code.length > 0)
-      .post-qr-code
-        each item in theme.QR_code
-          .post-qr-code-item
-            img.post-qr-code__img(src=(item.itemlist||item).img)
-            .post-qr-code__desc=(item.itemlist||item).text
-  include includes/share/index.pug
-  include includes/pagination.pug
-  if (theme.adv && theme.adv.enable)
-    .post-adv!= theme.adv.info
-  if page.comments !== false
-    include includes/comments/index.pug
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="公考模块之言语理解与表达"><meta name="keywords" content="学习,公务员考试"><meta name="author" content="Mo Yaoe"><meta name="copyright" content="Mo Yaoe"><title>公考模块之言语理解与表达 | 莫夭阏</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  hexoVersion: '5.4.0'
+} </script><meta name="generator" content="Hexo 5.4.0"></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%89%87%E6%AE%B5%E9%98%85%E8%AF%BB"><span class="toc-number">1.</span> <span class="toc-text">片段阅读</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%AD%E5%BF%83%E7%90%86%E8%A7%A3%E9%A2%98"><span class="toc-number">1.1.</span> <span class="toc-text">中心理解题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E7%82%B9%E8%AF%8D%E8%AF%AD%E4%B9%8B%E5%85%B3%E8%81%94%E8%AF%8D"><span class="toc-number">1.1.1.</span> <span class="toc-text">重点词语之关联词</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E8%BD%AC%E6%8A%98%E5%85%B3%E7%B3%BB"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">（一）转折关系</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E5%9B%A0%E6%9E%9C%E5%85%B3%E7%B3%BB"><span class="toc-number">1.1.1.2.</span> <span class="toc-text">（二）因果关系</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E5%BF%85%E8%A6%81%E6%9D%A1%E4%BB%B6%E5%85%B3%E7%B3%BB"><span class="toc-number">1.1.1.3.</span> <span class="toc-text">（三）必要条件关系</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%88%E5%9B%9B%EF%BC%89%E5%B9%B6%E5%88%97%E5%85%B3%E7%B3%BB"><span class="toc-number">1.1.1.4.</span> <span class="toc-text">（四）并列关系</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E7%82%B9%E8%AF%8D%E8%AF%AD%E4%B9%8B%E4%B8%BB%E9%A2%98%E8%AF%8D"><span class="toc-number">1.1.2.</span> <span class="toc-text">重点词语之主题词</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E7%82%B9%E8%AF%8D%E8%AF%AD%E4%B9%8B%E7%A8%8B%E5%BA%A6%E8%AF%8D"><span class="toc-number">1.1.3.</span> <span class="toc-text">重点词语之程度词</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%8C%E6%96%87%E8%84%89%E7%BB%9C"><span class="toc-number">1.1.4.</span> <span class="toc-text">行文脉络</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%86%E8%8A%82%E5%88%A4%E6%96%AD%E9%A2%98"><span class="toc-number">1.2.</span> <span class="toc-text">细节判断题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B8%E5%9E%8B%E7%BB%86%E8%8A%82%E9%A2%98"><span class="toc-number">1.2.1.</span> <span class="toc-text">典型细节题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%94%E9%A1%B9%E9%94%99%E8%AF%AF%E9%80%89%E9%A1%B9%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">五项错误选项的类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9B%B8%E5%AF%B9%E7%BB%9D%E5%AF%B9%E6%B3%95%E6%8E%92%E9%99%A4"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">相对绝对法排除</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%86%E8%8A%82%E4%B8%BB%E6%97%A8%E5%8C%96"><span class="toc-number">1.2.2.</span> <span class="toc-text">细节主旨化</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AF%AD%E5%8F%A5%E8%A1%A8%E8%BE%BE"><span class="toc-number">2.</span> <span class="toc-text">语句表达</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%AD%E5%8F%A5%E6%8E%92%E5%BA%8F%E9%A2%98"><span class="toc-number">2.1.</span> <span class="toc-text">语句排序题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E7%A1%AE%E5%AE%9A%E9%A6%96%E5%8F%A5"><span class="toc-number">2.1.1.</span> <span class="toc-text">（一）确定首句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E7%A1%AE%E5%AE%9A%E6%8D%86%E7%BB%91%E9%9B%86%E5%9B%A2"><span class="toc-number">2.1.2.</span> <span class="toc-text">（二）确定捆绑集团</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E7%A1%AE%E5%AE%9A%E9%A1%BA%E5%BA%8F"><span class="toc-number">2.1.3.</span> <span class="toc-text">（三）确定顺序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E5%9B%9B%EF%BC%89%E7%A1%AE%E5%AE%9A%E5%B0%BE%E5%8F%A5"><span class="toc-number">2.1.4.</span> <span class="toc-text">（四）确定尾句</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%AD%E5%8F%A5%E5%A1%AB%E7%A9%BA%E9%A2%98"><span class="toc-number">2.2.</span> <span class="toc-text">语句填空题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A5%E8%AF%AD%E9%80%89%E6%8B%A9%E9%A2%98"><span class="toc-number">2.3.</span> <span class="toc-text">接语选择题</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E5%A1%AB%E7%A9%BA"><span class="toc-number">3.</span> <span class="toc-text">逻辑填空</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%8D%E7%9A%84%E8%BE%A8%E6%9E%90"><span class="toc-number">3.1.</span> <span class="toc-text">词的辨析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E8%AF%8D%E4%B9%89%E4%BE%A7%E9%87%8D"><span class="toc-number">3.1.1.</span> <span class="toc-text">一、词义侧重</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%9B%BA%E5%AE%9A%E6%90%AD%E9%85%8D"><span class="toc-number">3.1.2.</span> <span class="toc-text">二、固定搭配</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E7%A8%8B%E5%BA%A6%E8%BD%BB%E9%87%8D"><span class="toc-number">3.1.3.</span> <span class="toc-text">三、程度轻重</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E6%84%9F%E6%83%85%E8%89%B2%E5%BD%A9"><span class="toc-number">3.1.4.</span> <span class="toc-text">四、感情色彩</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90"><span class="toc-number">3.2.</span> <span class="toc-text">语义分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%85%B3%E8%81%94%E5%85%B3%E7%B3%BB"><span class="toc-number">3.2.1.</span> <span class="toc-text">一、关联关系</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E8%BD%AC%E6%8A%98"><span class="toc-number">3.2.1.1.</span> <span class="toc-text">（一）转折</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E9%80%92%E8%BF%9B"><span class="toc-number">3.2.1.2.</span> <span class="toc-text">（二）递进</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E5%B9%B6%E5%88%97"><span class="toc-number">3.2.1.3.</span> <span class="toc-text">（三）并列</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB"><span class="toc-number">3.2.2.</span> <span class="toc-text">二、对应关系</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E8%A7%A3%E9%87%8A%E7%B1%BB%E5%AF%B9%E5%BA%94"><span class="toc-number">3.2.2.1.</span> <span class="toc-text">（一）解释类对应</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E9%87%8D%E7%82%B9%E8%AF%8D%E5%8F%A5%E5%AF%B9%E5%BA%94"><span class="toc-number">3.2.2.2.</span> <span class="toc-text">（二）重点词句对应</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%89%B9%E6%AE%8A%E9%A2%98%E5%9E%8B"><span class="toc-number">4.</span> <span class="toc-text">特殊题型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%87%E9%A2%98%E5%A1%AB%E5%85%A5%E9%A2%98"><span class="toc-number">4.1.</span> <span class="toc-text">标题填入题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%8D%E5%8F%A5%E7%90%86%E8%A7%A3%E9%A2%98"><span class="toc-number">4.2.</span> <span class="toc-text">词句理解题</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-number">5.</span> <span class="toc-text">结语</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="/img/avatar.png"></div><div class="author-info__name text-center">Mo Yaoe</div><div class="author-info__description text-center">失败中成长，低谷中仰望</div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">12</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">14</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">16</span></a></div></div></div><div id="content-outer"><div class="no-bg" id="top-container"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">莫夭阏</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right"></span></div><div id="post-info"><div id="post-title">公考模块之言语理解与表达</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-05-30</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E5%85%AC%E8%80%83%E5%AD%A6%E4%B9%A0/">公考学习</a><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E5%85%AC%E8%80%83%E5%AD%A6%E4%B9%A0/%E8%A8%80%E8%AF%AD%E7%90%86%E8%A7%A3%E4%B8%8E%E8%A1%A8%E8%BE%BE/">言语理解与表达</a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><blockquote>
+<p>内容总结于<strong>粉笔公考双师课程</strong>，后续还可进行补充和完善</p>
+</blockquote>
+<h1 id="片段阅读"><a href="#片段阅读" class="headerlink" title="片段阅读"></a>片段阅读</h1><h2 id="中心理解题"><a href="#中心理解题" class="headerlink" title="中心理解题"></a>中心理解题</h2><p><strong>提问方式</strong>：</p>
+<ul>
+<li><p>这段文字主要 / 旨在 / 重在 / 意在 / 想要说明 (论述或强调)的是…</p>
+</li>
+<li><p>这段文字的主旨 / 主题 / 观点是…</p>
+</li>
+<li><p>对这段文字概括最恰当的是…</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>解题思维</strong>：1. 重点词语     2. 行文脉络</p>
+</blockquote>
+<h3 id="重点词语之关联词"><a href="#重点词语之关联词" class="headerlink" title="重点词语之关联词"></a>重点词语之关联词</h3><h4 id="（一）转折关系"><a href="#（一）转折关系" class="headerlink" title="（一）转折关系"></a>（一）转折关系</h4><p>典型标志词：<code>虽然...但是...</code>  <code>尽管...可是...</code>  <code>...不过...</code>  <code>...然而...</code>  <code>...却...</code> <code> 其实 / 事实上 / 实际上</code> 等</p>
+<blockquote>
+<p><strong>理论要点</strong>：转折之后才是重点</p>
+</blockquote>
+<p>注意：在题干中见到  <code>别人认为... + 转折</code>的题型，与之相反即可锁定正确答案</p>
+<blockquote>
+<p>在题目中，对原因解释说明或论证的转折并非重点，要学会区分题干中的主次之分</p>
+</blockquote>
+<p>解题技巧：在选项中出现 “A” 与 “B” 的 <code>不同 / 差异 / 区别</code> 时，文段中对应的也要为并列结构(即选项并列题干中对应事件也必然并列)，可以用此技巧来快速排除选项，选出正确答案</p>
+<h4 id="（二）因果关系"><a href="#（二）因果关系" class="headerlink" title="（二）因果关系"></a>（二）因果关系</h4><p>典型标志词：<code>因为...所以...</code>  <code>由于...因此...</code>  <code>所以 </code>  <code>因此</code>  <code>因而</code>  <code>故而</code>  <code>于是</code>  <code>可见</code>  <code>看来</code>  <code>导致</code> <code> 致使</code>  <code>使得</code>  <code>造成</code> 等</p>
+<p>​    其中，<code>导致</code> <code> 致使</code>  <code>使得</code>  <code>造成</code> 四个词语引导的是消极的结论 <strong>(选择选项时有时情感色彩也是判断正确选项的重要手段)</strong></p>
+<blockquote>
+<p><strong>理论要点</strong>：因果关系中结论才是重点</p>
+<p>若是题干尾句出现了引导结论的词语，大部分情况下是对前文的总结，尾句通常作为文章的中心句。特别是 <code>因此</code> 引导的尾句，重点关注！</p>
+</blockquote>
+<h4 id="（三）必要条件关系"><a href="#（三）必要条件关系" class="headerlink" title="（三）必要条件关系"></a>（三）必要条件关系</h4><p>典型格式：<code>只有...才...</code></p>
+<blockquote>
+<p>理论要点：必要条件才是重点，即是 <code>只有</code> 和 <code>才</code> 之间的部分</p>
+<p>该类型在解题过程中还要注重 “对策” ，对策常考且很重要，在选项中出现基本等于多个正确选项中的最优解</p>
+</blockquote>
+<p>对策引导的标志词</p>
+<blockquote>
+<ol>
+<li>应该 / 应当 / 必须 / 需要 / 亟需 / 亟待 + 做法</li>
+<li>通过 / 采取…手段 / 途径 / 措施 / 方式 / 方法 / 渠道 + 做法</li>
+<li>呼吁 / 倡导 / 提倡 / 提醒 / 建议 + 做法</li>
+<li>前提 / 基础 / 保障 / 关键</li>
+</ol>
+</blockquote>
+<h4 id="（四）并列关系"><a href="#（四）并列关系" class="headerlink" title="（四）并列关系"></a>（四）并列关系</h4><blockquote>
+<p><strong>理论要点</strong>：概括全面而且完整</p>
+</blockquote>
+<p>典型特征：</p>
+<blockquote>
+<ol>
+<li>包含并列关联词或标点 (<code>此外</code> 、<code>另外</code> 、<code>同时</code> 、<code>以及</code> 、<code>;</code> )</li>
+<li>句式相同或者相近</li>
+<li>无明显其他关联词语。</li>
+</ol>
+</blockquote>
+<p>选项特征：</p>
+<blockquote>
+<ol>
+<li>只有两方面情况：<code>和</code> 、<code>及</code> 、<code>与</code> 、<code>同</code> 、<code>、</code></li>
+<li>有多种方面情况：<code>许多</code> 、<code>一些</code> 、<code>不同</code> 、<code>各种</code> 、<code>一系列</code></li>
+</ol>
+</blockquote>
+<p>注意：若题干中几个并列分句表达的意思相同，则要提取其中共性。组成 <code>主题词 + 内容共性</code></p>
+<h3 id="重点词语之主题词"><a href="#重点词语之主题词" class="headerlink" title="重点词语之主题词"></a>重点词语之主题词</h3><p>什么是主题词？</p>
+<blockquote>
+<ol>
+<li>文段围绕其展开</li>
+<li>一般在题干或选项中高频出现</li>
+<li>词性多为名词(不绝对)</li>
+<li>钱有引入或后有解释说明</li>
+</ol>
+</blockquote>
+<p>在快速阅读的过程中基本锁定主题词后观察选项，选项无主题词或主题词对应错误的直接排除</p>
+<blockquote>
+<p>补充：“而” 并不是绝对表示转折，下面是 “而” 在题干中的三种表述： </p>
+<ul>
+<li>转折 <code>如 学而不思则罔，思而不学则殆</code></li>
+<li>并列 <code>如 敏而好学</code></li>
+<li>顺承(承上启下) <code>如 则其善者而从之，其不善者而改之</code></li>
+</ul>
+</blockquote>
+<p>注意：文段中高频出现的并不一定是主题词，要注意区分，准确快速的找到主题词做题可达到事半功倍的效果</p>
+<h3 id="重点词语之程度词"><a href="#重点词语之程度词" class="headerlink" title="重点词语之程度词"></a>重点词语之程度词</h3><p>能起到加重语气作用的词语</p>
+<blockquote>
+<p><strong>理论要点</strong>：程度词所在的语句通常会是重点所在，注意积累程度词并熟练记忆</p>
+</blockquote>
+<p>标志词：<code>更</code>、<code>尤其</code> 、<code>正是</code> 、<code>特别是</code> 、 <code>真正</code> 、 <code>根本</code> 、 <code>最 </code>、 <code>堪比</code> 、 <code>深为...倾倒</code> 、 <code>关键在于</code> 等</p>
+<h3 id="行文脉络"><a href="#行文脉络" class="headerlink" title="行文脉络"></a>行文脉络</h3><p>行文脉络即使文章的结构划分，也就是题干的结构划分</p>
+<blockquote>
+<ol>
+<li>提出问题 + 分析问题 + <strong>解决问题</strong></li>
+<li>提出问题 + <strong>解决问题</strong> + 解释说明</li>
+<li>对策 + 正反论证（如果…那么..的形式） / 原因论证</li>
+</ol>
+</blockquote>
+<p>注意：当文段中只有 “提出问题 + 分析问题” 的半截子结构时，“解决问题” 通常会作为正确答案出现在选项里</p>
+<p>常见的<strong>错误</strong>选项特征：题干中为假设的表述在选项里变成了现实</p>
+<blockquote>
+<p><strong>理论要点</strong>：把握中心句以及分述句的特征</p>
+<p>中心句特征：题干的观点 (对策、结论、评价)</p>
+<p>分述句特征：</p>
+<ol>
+<li>举例子 (<code>比如</code> 、 <code>例如</code> 、<code>...就是例证</code> 等)</li>
+<li>调查报告、数据资料等</li>
+<li>正反论证</li>
+<li>原因解释</li>
+<li>并列分述 (<code>比如...；比如...</code> <code>一方面... 又一方面...</code> )</li>
+</ol>
+</blockquote>
+<p>脉络分为 5 类：<code>总—分</code> 、<code>分—总 </code>、<code>总—分—总</code> 、<code>分—总—分</code> 、<code>分—分(以并列结构形式存在)</code></p>
+<p>总—分 (观点 + 解释说明)</p>
+<blockquote>
+<p>中心句之后为不同类型的解释说明</p>
+</blockquote>
+<p>分—总 (现象 + 总结)</p>
+<blockquote>
+<p>总结以下三类注意</p>
+<ol>
+<li>结论或对策</li>
+<li>代词 (<code>这</code>、<code>此</code>) 引导的尾句要关注</li>
+<li>常考标志词：<code>对此</code> 、<code>有鉴于此</code> 、<code>尽管如此</code> 、<code>在这个意义上</code> 、<code>从这个角度来说</code></li>
+</ol>
+</blockquote>
+<p>总—分—总 + 分—总—分 + 分—分</p>
+<blockquote>
+<p>前两者注意区分 “总(中心)” 对策作答</p>
+<p>后者 <code>分—分 </code>则注意问题类型，按照问题作答且要全面(题干并列选项并列)</p>
+</blockquote>
+<p>补充：当选项中出现 “何以是” 、“何为” 如何区分？</p>
+<p>“何以是”表示的是为什么；“何为”则表示什么是什么(多为下定义)</p>
+<h2 id="细节判断题"><a href="#细节判断题" class="headerlink" title="细节判断题"></a>细节判断题</h2><p>提问方式：</p>
+<ul>
+<li>对以下文段理解正确 / 不正确的是…</li>
+<li>符合 / 不符合这段话意思的是…</li>
+<li>从文段中可以得知 / 推出的是…</li>
+</ul>
+<h3 id="典型细节题"><a href="#典型细节题" class="headerlink" title="典型细节题"></a>典型细节题</h3><h4 id="五项错误选项的类型"><a href="#五项错误选项的类型" class="headerlink" title="五项错误选项的类型"></a>五项错误选项的类型</h4><ol>
+<li><p>无中生有</p>
+</li>
+<li><p>偷换概念 (替换或混搭)</p>
+</li>
+<li><p>偷换时态</p>
+<blockquote>
+<ul>
+<li><p>将来时 (将要 、立刻 、趋势 、以后)</p>
+</li>
+<li><p>完成时 (已 、已经 、了 、完成)</p>
+</li>
+<li><p>进行时 (正在 、在…中 、着)</p>
+<p>注意：做题时刻要注意时态，看到干扰选项直接排除</p>
+</li>
+</ul>
+</blockquote>
+</li>
+<li><p>偷换语气</p>
+</li>
+<li><p>无关对比</p>
+<blockquote>
+<p>标志词：<code>A 比 B更...</code> 、<code>A 高于 / 优于 B</code> 、<code>利大于弊</code></p>
+</blockquote>
+</li>
+</ol>
+<p>常见错误如：</p>
+<blockquote>
+<p>文段中明确表示有 A 同时 / 加上 B (并列)</p>
+<p><em>选项干扰一</em>：A 导致 / 反映 / 影响 B (因果)</p>
+<p><em>选项干扰二</em>：以 A 为主，B 是核心 (主次之分错误)</p>
+</blockquote>
+<h4 id="相对绝对法排除"><a href="#相对绝对法排除" class="headerlink" title="相对绝对法排除"></a>相对绝对法排除</h4><p>绝对标志词：一定 、全部 、完全 、所有 、均 、永远 、任何 、取代 、主导 、唯一 、只要…就… 、无论…都… 等</p>
+<p>相对标志词：可能 、也许 、或许 、大概 、一般 、尽量 、往往 、容易 、…之一 等</p>
+<h3 id="细节主旨化"><a href="#细节主旨化" class="headerlink" title="细节主旨化"></a>细节主旨化</h3><blockquote>
+<p><strong>理论要点</strong>：优选契合主旨的选项 （多个选项符合时的选择方式）</p>
+</blockquote>
+<p>当有多个选项符合题干并无错误时，优先选择最契合主旨的选项</p>
+<h1 id="语句表达"><a href="#语句表达" class="headerlink" title="语句表达"></a>语句表达</h1><h2 id="语句排序题"><a href="#语句排序题" class="headerlink" title="语句排序题"></a>语句排序题</h2><p>提问方式：将以上几个句子重新排列，语序正确的是…</p>
+<blockquote>
+<p>解题要点：</p>
+<ol>
+<li>根据选项提示对比后确定首句</li>
+<li>确定捆绑集团 / 去顶顺序 / 确定尾句</li>
+<li>验证 (仅验证基本锁定的答案)</li>
+</ol>
+</blockquote>
+<h3 id="（一）确定首句"><a href="#（一）确定首句" class="headerlink" title="（一）确定首句"></a>（一）确定首句</h3><ul>
+<li><p>下定义</p>
+<blockquote>
+<p>标志词：…就是 、是指…</p>
+</blockquote>
+</li>
+<li><p>提出观点</p>
+<blockquote>
+<p>标志词：有人说 、 人们普遍认为 、…认为</p>
+</blockquote>
+</li>
+<li><p>背景引入</p>
+<blockquote>
+<p>标志词：随着 、 近年来 、 在…大背景下 / 环境下</p>
+</blockquote>
+</li>
+<li><p>非首句特征</p>
+<blockquote>
+<p>标志词：指代词 / 关联词后半部分</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="（二）确定捆绑集团"><a href="#（二）确定捆绑集团" class="headerlink" title="（二）确定捆绑集团"></a>（二）确定捆绑集团</h3><ul>
+<li>指代词捆绑</li>
+<li>关联词捆绑</li>
+</ul>
+<h3 id="（三）确定顺序"><a href="#（三）确定顺序" class="headerlink" title="（三）确定顺序"></a>（三）确定顺序</h3><ul>
+<li><p>时间顺序</p>
+<blockquote>
+<p>多表现为：具体年份 、朝代 、标时间的词语 (过去、现在、将来)</p>
+</blockquote>
+</li>
+<li><p>逻辑顺序</p>
+<blockquote>
+<p>如观点 + 论证 / 解释说明</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="（四）确定尾句"><a href="#（四）确定尾句" class="headerlink" title="（四）确定尾句"></a>（四）确定尾句</h3><p>引导词一般为：因此 、所以 、看来 、于是 、这 、应该 、需要</p>
+<h2 id="语句填空题"><a href="#语句填空题" class="headerlink" title="语句填空题"></a>语句填空题</h2><p>提问方式：填入画横线部分最恰当的一项是…</p>
+<blockquote>
+<p><strong>理论要点</strong>：</p>
+<ol>
+<li><p>横线在结尾</p>
+<p>多为 总结前文 / 提出对策</p>
+</li>
+<li><p>横线在开头</p>
+<p>概括文段的中心内容</p>
+</li>
+<li><p>横线在中间</p>
+<p>注意与上下文联系 (承上启下作用) 、把握主题词，保证与文段话题一致</p>
+</li>
+</ol>
+</blockquote>
+<h2 id="接语选择题"><a href="#接语选择题" class="headerlink" title="接语选择题"></a>接语选择题</h2><p>提问方式：作者接下来最有可能讲述的是…</p>
+<blockquote>
+<p><strong>理论要点</strong>：重点关注文段的最后一句话 (保持话题一致，注意主题词)</p>
+<p>干扰选项的特征：文段中已经论述过得内容 (重复叙述)</p>
+</blockquote>
+<h1 id="逻辑填空"><a href="#逻辑填空" class="headerlink" title="逻辑填空"></a>逻辑填空</h1><h2 id="词的辨析"><a href="#词的辨析" class="headerlink" title="词的辨析"></a>词的辨析</h2><h3 id="一、词义侧重"><a href="#一、词义侧重" class="headerlink" title="一、词义侧重"></a>一、词义侧重</h3><p>辨析方法：</p>
+<ol>
+<li>用不一样的字组词</li>
+<li>整体进行搭配组词</li>
+</ol>
+<p>以上方法更多的依赖做题经验</p>
+<h3 id="二、固定搭配"><a href="#二、固定搭配" class="headerlink" title="二、固定搭配"></a>二、固定搭配</h3><blockquote>
+<p>理论要点：找准搭配对象 (热点词、常用词)</p>
+</blockquote>
+<p>搭配方法：</p>
+<blockquote>
+<ol>
+<li>搭配 人 / 物</li>
+<li>对象指向方向 上 → 下 / 下 → 上 (如：爱护【上 → 下】、爱戴【下 → 上】)</li>
+<li>具体 / 抽象 (如：界线 / 界限)</li>
+<li>主动 / 被动 (如：压制 / 受制)</li>
+</ol>
+</blockquote>
+<p>补充：“凝聚共识” 为固定搭配，琢磨：思考，思虑 (与肯定词搭配) ; 捉摸：猜测 (与否定词搭配)</p>
+<h3 id="三、程度轻重"><a href="#三、程度轻重" class="headerlink" title="三、程度轻重"></a>三、程度轻重</h3><blockquote>
+<p><strong>理论要点</strong>：所填词语的程度与文段意思轻重保持一致</p>
+<p>如：</p>
+<table>
+<thead>
+<tr>
+<th align="center">重</th>
+<th align="center">→</th>
+<th align="center">轻</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">缺陷</td>
+<td align="center">缺点</td>
+<td align="center">瑕疵</td>
+</tr>
+<tr>
+<td align="center">截然相反</td>
+<td align="center">→</td>
+<td align="center">大相径庭</td>
+</tr>
+</tbody></table>
+</blockquote>
+<h3 id="四、感情色彩"><a href="#四、感情色彩" class="headerlink" title="四、感情色彩"></a>四、感情色彩</h3><blockquote>
+<p><strong>理论要点</strong>：</p>
+<ol>
+<li>褒义、贬义、中性的正确区分</li>
+<li>所填入词语的感情色彩与文段表达的感情色彩保持一致</li>
+</ol>
+</blockquote>
+<h2 id="语义分析"><a href="#语义分析" class="headerlink" title="语义分析"></a>语义分析</h2><h3 id="一、关联关系"><a href="#一、关联关系" class="headerlink" title="一、关联关系"></a>一、关联关系</h3><p>关联关系由三中类型构成，即转折 、递进 、并列</p>
+<h4 id="（一）转折"><a href="#（一）转折" class="headerlink" title="（一）转折"></a>（一）转折</h4><blockquote>
+<p><strong>理论要点</strong>：前后语义相反</p>
+</blockquote>
+<p>转折标志词同<strong>重点词语之关联词转折关系</strong></p>
+<h4 id="（二）递进"><a href="#（二）递进" class="headerlink" title="（二）递进"></a>（二）递进</h4><blockquote>
+<p><strong>理论要点</strong>：语义程度前轻后重</p>
+</blockquote>
+<p>标志词：而且 、更 、甚至 、乃至 、遑论 等</p>
+<h4 id="（三）并列"><a href="#（三）并列" class="headerlink" title="（三）并列"></a>（三）并列</h4><blockquote>
+<p>理论要点：前后语义无之间联系，相互并列或句式一致 /相似</p>
+</blockquote>
+<p>标志词：</p>
+<ol>
+<li>同义并列：顿号“、”，逗号“，”</li>
+<li>反义并列：不是…而是… ， 是…不是… ，相反 ，反之 等</li>
+</ol>
+<h3 id="二、对应关系"><a href="#二、对应关系" class="headerlink" title="二、对应关系"></a>二、对应关系</h3><h4 id="（一）解释类对应"><a href="#（一）解释类对应" class="headerlink" title="（一）解释类对应"></a>（一）解释类对应</h4><p>题干特点：分句，____，分句</p>
+<p>标志词：即 、就是 、可以说 、无异于 、比如 、例如 等</p>
+<p>标点符号：冒号 (：) 和破折号 (——)</p>
+<h4 id="（二）重点词句对应"><a href="#（二）重点词句对应" class="headerlink" title="（二）重点词句对应"></a>（二）重点词句对应</h4><pre><code>1. 重点词：指代词、主题词、形象表达
+ 2. 重点句：完整的语句
+</code></pre>
+<h1 id="特殊题型"><a href="#特殊题型" class="headerlink" title="特殊题型"></a>特殊题型</h1><h2 id="标题填入题"><a href="#标题填入题" class="headerlink" title="标题填入题"></a>标题填入题</h2><p>提问方式：最适合做这段文字表一的是…</p>
+<p>要找准中心句是很重要的，与之类似的就是中心理解题</p>
+<blockquote>
+<p><strong>理论要点</strong>：标题要契合中心，短小精悍且吸引读者</p>
+</blockquote>
+<h2 id="词句理解题"><a href="#词句理解题" class="headerlink" title="词句理解题"></a>词句理解题</h2><p>提问方式：这段文字中 “XXX” 指的 / 含义 / 意思是…</p>
+<blockquote>
+<p>理论要点：</p>
+<ol>
+<li>词句出现在文段首尾，需整体把握文段的内容</li>
+<li>词句出现在文段的中间，联系前后文语境把握词语含义</li>
+<li>代词指代：重点关注代词前面的内容，如纠结再看其后面的内容</li>
+</ol>
+</blockquote>
+<p>代词指代的解题思维如下：</p>
+<p><strong>定位原文 + 一般往前找指代的内容</strong></p>
+<blockquote>
+<p>干扰选项：</p>
+<ol>
+<li>代词之后的内容</li>
+<li>文段出现多个代词，非提问方式中的代词指代的内容</li>
+<li>离代词最近的非重点内容 (正确答案的锁定并非是越近越好)</li>
+</ol>
+</blockquote>
+<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p>至此以上，均来自于听课后的第一次总结，很多地方待完善全面，希望做题过程中可以有更精进的想法得以增添其中，达到融会贯通。</p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Mo Yaoe</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2020/05/30/civil servant/公考模块之言语理解与表达/">http://example.com/2020/05/30/civil servant/公考模块之言语理解与表达/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com">莫夭阏</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%AD%A6%E4%B9%A0/">学习</a><a class="post-meta__tags" href="/tags/%E5%85%AC%E5%8A%A1%E5%91%98%E8%80%83%E8%AF%95/">公务员考试</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2020/06/02/learn/Git-%E5%B0%86%E6%9C%AC%E5%9C%B0%E6%96%87%E4%BB%B6%E4%B8%8EGithub%E4%BB%93%E5%BA%93%E5%85%B3%E8%81%94/"><i class="fa fa-chevron-left">  </i><span>Git 将本地文件与Github仓库关联</span></a></div><div class="next-post pull-right"><a href="/2020/05/29/learn/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E7%BD%91%E7%AB%99%E7%9A%84%E6%80%BB%E7%BB%93/"><span>搭建个人网站的总结</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2013 - 2021 By Mo Yaoe</div><div class="framework-info"><span>驱动 - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.0"></script><script src="/js/fancybox.js?version=1.9.0"></script><script src="/js/sidebar.js?version=1.9.0"></script><script src="/js/copy.js?version=1.9.0"></script><script src="/js/fireworks.js?version=1.9.0"></script><script src="/js/transition.js?version=1.9.0"></script><script src="/js/scroll.js?version=1.9.0"></script><script src="/js/head.js?version=1.9.0"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script></body></html>
